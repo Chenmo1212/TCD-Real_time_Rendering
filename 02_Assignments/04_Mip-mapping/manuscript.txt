@@ -1,0 +1,27 @@
+Hi, everyone.
+
+This is my video submission for real-time rendering assignment four.
+
+and this task was to implement a program that demonstrates Mip mapping.
+The
+In digital images, there is a pattern that appears when two or more regular patterns are overlaid or superimposed on each other. The resulting pattern can create a visual effect of rippling or shimmering lines, dots, or waves. This pattern is called Moiré (pronounced "mo-ray"). Moiré patterns can be visually distracting and can reduce the quality of the image.
+
+Mip mapping is one of the methods to solve moiré.
+
+Here I implemented four methods to compare the visual quality of textures, Nearest Neightbour Filtering, BiLinear Filtering, MIP mapping and Anisotropic Filtering.
+
+In this scene, u can see that, this is a flat with checkerboard texture.
+
+The first method is Nearest Neightbour Filtering. This is a simple technique that involves selecting the closest pixel value to the sample point. It is quick and efficient, but it can result in images that appear pixelated or jagged.
+
+The next mapping technique is BiLinear Filtering. This technique takes a weighted average of the four closest pixel values to the sample point. It produces smoother results than nearest-neighbor filtering and is faster than more complex filtering techniques. But it still can't solve the moiré patterns.
+
+The next one is MIP mapping. It involves pre-generating multiple versions of a texture at different resolutions and storing them in memory. When rendering an object, the appropriate resolution is selected based on the distance between the object and the camera. This helps to prevent aliasing artifacts and produces more detailed textures, especially when viewed from a distance.
+
+The last one is Anisotropic Filtering. This is a more advanced filtering technique that takes into account the direction of the texture's surface. It provides higher quality texture filtering than bi-linear filtering, especially for textures with a high aspect ratio or irregular orientation, such as wood grain or hair. Anisotropic filtering can be computationally expensive, especially at higher levels, so it's usually applied selectively to specific textures rather than universally to all textures in a scene.
+
+I also add some keyboard events and mouse events to help u to see the results clearly. u can press the m key to let the flat auto-rotate. And press c key to rotate the camera. If u wanna change the distance between the camera and flat, u can press w, s, a and d keys to do that. You also can change the distance using the mouse wheel to better see the details.
+
+Finally, you can press the R key to reset all parameters you have previously set.
+
+Yeah, that's all my submission, thank you for watching.

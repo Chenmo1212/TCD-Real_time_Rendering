@@ -1,0 +1,26 @@
+#version 330 core
+
+// Input variables
+in vec3 vertex_position; // Vertex position in object space
+in vec3 vertex_normal; // Normal vector at the vertex in object space
+
+// Output variables
+out vec3 normal; // Interpolated normal vector for fragment
+out vec3 fragPos; // Interpolated vertex position in world space for fragment
+
+// Uniform variables (values shared for all vertices)
+uniform mat4 model; // Model transformation matrix
+uniform mat4 view; // View transformation matrix
+uniform mat4 proj; // Projection transformation matrix
+
+void main()
+{
+    // Calculate normal vector in world space
+    normal = mat3(transpose(inverse(model))) * vertex_normal;
+
+    // Calculate vertex position in world space
+    fragPos = vec3(model * vec4(vertex_position, 1.0f));
+
+    // Calculate final vertex position in clip space
+    gl_Position = proj * view * vec4(fragPos, 1.0);
+}

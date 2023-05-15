@@ -1,0 +1,24 @@
+#version 330
+out vec4 FragColor;
+
+in vec3 normal; // Incoming normal vector
+in vec3 position; // Incoming position vector
+
+uniform float eta; // Index of refraction
+uniform float fPower = 2.0; // Focal power, default is 2.0
+float F = ((1.0-eta) * (1.0-eta)) / ((1.0+eta) * (1.0+eta)); // Schlick's approximation for the reflection coefficient
+
+uniform mat4 view; // View matrix
+uniform samplerCube skybox; // Skybox texture
+
+void main(){
+    vec3 reflection = reflect(normalize(position), normalize(normal)); // Compute reflection vector
+    vec3 refraction = refract(normalize(position), normalize(normal), eta); // Compute refraction vector
+
+    vec3 reflectionTexture = vec3(texture(skybox, reflection)); // Sample texture for reflection
+    vec3 refractionTexture = vec3(texture(skybox, refraction)); // Sample texture for refraction
+    
+    float ratio = F + (1.0 - F) * pow((1.0 - dot(-normalize(position), normalize(normal))), fPower); // Compute the ratio of reflection and refraction
+    
+    FragColor = vec4(mix(refractionTexture, reflectionTexture, ratio), 1); // Mix reflection and refraction based on the ratio, and output the final color
+}

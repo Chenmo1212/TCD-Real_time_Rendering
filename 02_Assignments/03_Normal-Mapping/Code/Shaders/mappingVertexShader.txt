@@ -1,0 +1,39 @@
+#version 330    // Indicates that the code is written in OpenGL 3.3 shader language version
+
+in vec3 vertex_position;      // Defines an input variable that represents the position of the vertex in 3D space.
+in vec3 vertex_normal;        // Defines an input variable that represents the normal vector of the vertex.
+in vec2 vertex_texture;       // Defines an input variable that represents the texture coordinates of the vertex.
+in vec3 aTangent;             // Defines an input variable that represents the tangent vector of the vertex.
+in vec3 aBitangent;           // Defines an input variable that represents the bitangent vector of the vertex.
+
+out vec3 fragPosTS;           // Defines an output variable that will hold the fragment position in tangent space.
+out vec3 lightPosTS;          // Defines an output variable that will hold the light position in tangent space.
+out vec3 viewPosTS;           // Defines an output variable that will hold the view position in tangent space.
+out vec2 texCoords;           // Defines an output variable that will hold the texture coordinates of the fragment.
+out vec3 normalIn;            // Defines an output variable that will hold the normal vector of the fragment.
+
+uniform mat4 view;            // Defines a uniform variable that represents the view matrix.
+uniform mat4 proj;            // Defines a uniform variable that represents the projection matrix.
+uniform mat4 model;           // Defines a uniform variable that represents the model matrix.
+
+uniform vec3 lightPos;        // Defines a uniform variable that represents the position of the light source.
+uniform vec3 viewPos;         // Defines a uniform variable that represents the position of the camera.
+uniform int uvScalar;         // Defines a uniform variable that represents the scaling factor of the texture coordinates.
+
+void main(){
+  vec3 fragPos = vec3(model * vec4(vertex_position, 1.0));   // Transforms the vertex position to world space using the model matrix.
+  normalIn = mat3(transpose(inverse(model))) * vertex_normal; // Transforms the vertex normal to world space using the model matrix and calculates the inverse transpose.
+  texCoords = vertex_texture * uvScalar;                      // Scales the texture coordinates using the uvScalar.
+
+  mat3 modelVector = transpose(inverse(mat3(model)));         // Calculates the model space tangent, bitangent and normal vectors using the model matrix.
+  vec3 T = normalize(modelVector * aTangent);
+  vec3 B = normalize(modelVector * aBitangent);
+  vec3 N = normalize(modelVector * vertex_normal);
+  mat3 TBN = transpose(mat3(T, B, N));                         // Constructs the TBN matrix using the tangent, bitangent and normal vectors.
+
+  fragPosTS = TBN * fragPos;                                   // Transforms the fragment position to tangent space using the TBN matrix.
+  lightPosTS = TBN * lightPos;                                 // Transforms the light position to tangent space using the TBN matrix.
+  viewPosTS = TBN * viewPos;                                   // Transforms the view position to tangent space using the TBN matrix.
+
+  gl_Position = proj * view * model * vec4(vertex_position, 1.0);  // Transforms the vertex position to clip space using the projection, view and model matrices.
+}

@@ -1,0 +1,20 @@
+#version 330
+
+// Input vertex position vector
+in vec3 vertex_position;
+
+// Output texture coordinate vector
+out vec3 textureCoords;
+
+// Uniform matrices for view and projection transformations
+uniform mat4 view;
+uniform mat4 proj;
+
+void main() 
+{
+    // Pass the vertex position vector as the texture coordinate
+    textureCoords = vertex_position;
+
+    // Transform the vertex position vector by the view and projection matrices
+    gl_Position = proj * view * vec4(vertex_position, 1.0);
+}

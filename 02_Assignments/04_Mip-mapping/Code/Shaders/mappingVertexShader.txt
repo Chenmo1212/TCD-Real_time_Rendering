@@ -1,0 +1,48 @@
+// Version of the GLSL language used in this shader program
+#version 330
+
+// Vertex attributes
+in vec3 vertex_position; // vertex position in object space
+in vec3 vertex_normal; // vertex normal in object space
+in vec2 vertex_texture; // vertex texture coordinates in object space
+in vec3 aTangent; // tangent vector in object space
+in vec3 aBitangent; // bitangent vector in object space
+
+// Output variables
+out vec3 fragPosTS; // fragment position in tangent space
+out vec3 lightPosTS; // light position in tangent space
+out vec3 viewPosTS; // view position in tangent space
+out vec2 texCoords; // texture coordinates for fragment
+out vec3 normalIn; // interpolated normal vector for fragment
+
+// Uniform variables (constant across all vertices and fragments)
+uniform mat4 view; // view matrix for camera
+uniform mat4 proj; // projection matrix for camera
+uniform mat4 model; // model matrix for object
+uniform vec3 lightPos; // position of light source in world space
+uniform vec3 viewPos; // position of camera in world space
+uniform int uvScalar; // scalar factor for texture coordinates
+
+void main(){
+	// Transform vertex attributes from object space to clip space
+	vec3 fragPos = vec3(model * vec4(vertex_position, 1.0)); // position of fragment in world space
+	normalIn = mat3(transpose(inverse(model))) * vertex_normal; // normal vector in world space
+	texCoords = vertex_texture * uvScalar; // adjust texture coordinates
+
+	// Calculate tangent space basis vectors using the tangent, bitangent, and normal vectors
+	mat3 modelVector = transpose(inverse(mat3(model))); // calculate inverse transpose of model matrix for transforming normal vectors
+	vec3 T = normalize(modelVector * aTangent); // tangent vector in world space
+	vec3 B = normalize(modelVector * aBitangent); // bitangent vector in world space
+	vec3 N = normalize(modelVector * vertex_normal); // normal vector in world space
+	mat3 TBN = transpose(mat3(T, B, N)); // tangent space basis matrix
+
+	// Transform variables to tangent space for lighting calculations
+	fragPosTS = TBN * fragPos; // position of fragment in tangent space
+	lightPosTS = TBN * lightPos; // position of light source in tangent space
+	viewPosTS = TBN * viewPos; // position of camera in tangent space
+
+	// Transform vertex position to clip space
+	gl_Position = proj * view * model * vec4(vertex_position, 1.0);
+}
+
+  

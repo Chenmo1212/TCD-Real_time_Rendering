@@ -1,0 +1,20 @@
+#version 330
+
+out vec4 FragColor;  // output color of the fragment shader
+
+in vec3 normal;      // input normal vector
+in vec3 position;    // input position vector
+
+uniform mat4 view;          // view matrix used to transform the reflected direction
+uniform samplerCube skybox;  // skybox texture
+
+void main(){
+    // reflect the normalized position vector around the normalized normal vector
+    vec3 R = reflect(normalize(position), normalize(normal));
+    
+    // transform the reflected direction using the inverse of the view matrix
+	R = vec3(inverse(view) * vec4(R, 0.0));
+
+    // sample the skybox texture using the transformed reflected direction
+	FragColor = texture(skybox, R);
+}

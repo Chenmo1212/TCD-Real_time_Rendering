@@ -1,0 +1,44 @@
+#version 330
+
+// Define output fragment color
+out vec4 FragColor;
+
+// Define input vertex attributes
+in vec3 normal;
+in vec3 position;
+
+// Define uniforms
+uniform float etaR; // Refractive index for red light
+uniform float etaG; // Refractive index for green light
+uniform float etaB; // Refractive index for blue light
+uniform float fPower; // Fresnel power
+
+float F = ((1.0-etaG) * (1.0-etaG)) / ((1.0+etaG) * (1.0+etaG)); // Compute Fresnel reflectance
+
+uniform mat4 view; // View matrix
+uniform samplerCube skybox; // Skybox texture
+
+void main(){
+    // Compute reflection vector
+    vec3 reflection = reflect(normalize(position), normalize(normal));
+    
+    // Compute ratio of reflected to refracted light
+    float ratio = F + (1.0 - F) * pow((1.0 - dot(-normalize(position), normalize(normal))), fPower);
+
+    // Compute refracted vectors for red, green, and blue light
+    vec3 refractionR = refract(normalize(position), normalize(normal), etaR);
+    vec3 refractionG = refract(normalize(position), normalize(normal), etaG);
+    vec3 refractionB = refract(normalize(position), normalize(normal), etaB);
+    
+    // Sample skybox texture for refracted vectors
+    vec3 refraction;
+    refraction.r = vec3(texture(skybox, refractionR)).r;
+    refraction.g = vec3(texture(skybox, refractionG)).g;
+    refraction.b = vec3(texture(skybox, refractionB)).b;
+
+    // Sample skybox texture for reflection vector
+    vec3 reflectionTexture = vec3(texture(skybox, reflection));
+
+    // Interpolate between refracted and reflected light based on ratio
+    FragColor = vec4(mix(refraction, reflectionTexture, ratio), 1);
+}

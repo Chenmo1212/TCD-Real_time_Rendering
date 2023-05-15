@@ -1,0 +1,18 @@
+#version 330 core    // Specifies the GLSL version and profile to use
+
+in vec4 vertex;      // Input variable for vertex position data
+out vec2 texCoords;  // Output variable for texture coordinates
+
+uniform mat4 proj;   // Uniform variable for projection matrix
+
+void main()
+{
+    // Calculate the position of the vertex in clip space by multiplying the
+    // projection matrix with the vertex position, and set the resulting position
+    // as the value of the built-in variable gl_Position.
+    gl_Position = proj * vec4(vertex.xy, 0.0, 1.0);
+
+    // Pass the texture coordinates of the vertex to the fragment shader by
+    // setting the value of the output variable texCoords.
+    texCoords = vertex.zw;
+}

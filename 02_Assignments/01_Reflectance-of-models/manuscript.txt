@@ -1,0 +1,25 @@
+Hi, everyone.
+
+This is my video submission for real-time rendering assignment one 
+
+and this task was to compare three reflectance models, 
+
+one had to be a Phong or Blinn-Phong, so i've gone with Phong, 
+
+and the other two are non-realistic and realistic shader methods.
+
+The first one is the toon shading.
+Toon shading is a simplified shading model for creating a toon-like look to 3D models.
+
+It is a non-photorealistic technique, and it doesn't take into account any physical properties of the surface or lighting, but rather creates a flat-shaded appearance with an outline around it.
+
+The middle one is phong shading. 
+Phong shading is an early shading model that uses a combination of ambient, diffuse, and specular lighting to approximate the appearance of a surface.
+
+Cook-Torrance shading is a more advanced shading model that takes into account more physical properties of the light-surface interaction. It uses multiple components, including a diffuse response, a specular response, a shadowing response, and a Fresnel response, to calculate a more realistic-looking surface. 
+
+I also made some shortkeys to control the different features, like if u press W or S key, the strength of three models will be changed. And if u press M key, teapots will start spinning. The last one is L key, which allows the lighting source to rotate around the teapot so we can see the reflection easily. 
+
+Finally, I also used the diffuse reflection and specular reflection of toon shading to make a comparison of different parameters. It shows if the same model is applied different parameters, it will also lead to different reflection effects.
+
+Yeah, that's all my submission, thank you for watching.

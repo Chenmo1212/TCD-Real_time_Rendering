@@ -1,0 +1,41 @@
+#version 330 core
+
+// Input variables
+in vec3 vertex_position; // Vertex position attribute
+in vec3 vertex_normal; // Vertex normal attribute
+
+// Output variables
+out vec3 normal; // Interpolated normal vector for fragment
+out vec3 lightDir; // Direction from fragment to light source
+out vec3 viewDir; // Direction from fragment to camera (viewer)
+out float attenuation; // Attenuation factor for light intensity
+
+// Uniform variables (values shared for all vertices/fragments)
+uniform mat4 model; // Model transformation matrix
+uniform mat4 view; // View transformation matrix
+uniform mat4 proj; // Projection transformation matrix
+uniform vec3 lightPos; // Light source position in world space
+uniform vec3 viewPos; // Camera position in world space
+
+void main() {
+    
+    // Calculate the transformed normal vector by the model matrix
+    normal = mat3(model) * vertex_normal;
+
+    // Calculate the transformed vertex position in world space
+    vec3 fragPos = vec3(model * vec4(vertex_position, 1.0f));
+
+    // Calculate the direction from the fragment to the camera (viewer)
+    viewDir = normalize(viewPos - fragPos);
+
+    // Calculate the direction from the fragment to the light source
+    lightDir = normalize(lightPos - fragPos);
+
+    // Calculate attenuation factor for light intensity based on distance from light source
+    float radius = 50.0; // Maximum distance at which light source has full intensity
+    float dist = length(vec3((view * model) * vec4(lightPos, 1.0)) - fragPos); // Distance from light source to fragment
+    attenuation = 1.0 / (1.0 + ((2.0 / radius) * dist) + ((1.0 / (radius * radius)) * (dist * dist)));
+
+    // Calculate the final position of the vertex in clip space
+    gl_Position = proj * view * vec4(fragPos, 1.0);
+}

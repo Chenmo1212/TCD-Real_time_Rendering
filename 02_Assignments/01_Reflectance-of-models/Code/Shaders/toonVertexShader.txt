@@ -1,0 +1,26 @@
+#version 330 core
+
+// Input vertex position and normal vectors
+in vec3 vertex_position;
+in vec3 vertex_normal;
+
+// Output normal and fragment position vectors
+out vec3 normal;
+out vec3 fragPos;
+
+// Uniform matrices for model, view, and projection transformations
+uniform mat4 model;
+uniform mat4 view;
+uniform mat4 proj;
+
+void main() {
+    // Calculate the transformed normal vector using the model matrix
+    // and its inverse transpose, which corrects for any scaling or skewing
+    normal = mat3(transpose(inverse(model))) * vertex_normal;
+
+    // Calculate the transformed fragment position vector using the model matrix
+    fragPos = vec3(model * vec4(vertex_position, 1.0f));
+
+    // Transform the fragment position vector by the view and projection matrices
+    gl_Position = proj * view * vec4(fragPos, 1.0);
+}

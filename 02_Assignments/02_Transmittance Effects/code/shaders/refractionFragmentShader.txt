@@ -1,0 +1,23 @@
+#version 330      // Specifies the GLSL version and profile to use
+
+out vec4 FragColor;  // Output variable for fragment color
+
+in vec3 normal;     // Input variable for surface normal
+in vec3 position;   // Input variable for surface position
+
+uniform mat4 view;        // Uniform variable for view matrix
+uniform float ratioDenom; // Uniform variable for refraction ratio denominator
+uniform samplerCube skybox; // Uniform variable for skybox texture
+
+void main(){
+    // Calculate the refraction direction based on the surface position and normal,
+    // using the refraction index ratio and normalize the direction.
+    float ratio = 1.0/1.52; // Refraction index ratio
+    vec3 R = refract(normalize(position), normalize(normal), ratio);
+
+    // Transform the refraction direction by the inverse of the view matrix.
+    R = vec3(inverse(view) * vec4(R, 0.0));
+
+    // Sample the skybox texture using the transformed refraction direction as the texture coordinates.
+    FragColor = texture(skybox, R);
+}

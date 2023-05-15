@@ -1,0 +1,53 @@
+#version 330 core
+
+#define PI 3.14159265
+
+out vec4 FragColor;
+
+in vec3 normal;         // Input surface normal
+in vec3 lightDir;       // Input direction from surface to light
+in vec3 viewDir;        // Input direction from surface to camera
+in float attenuation;   // Input light attenuation
+
+vec3 ambientColor = vec3(0.0);  // Surface ambient color
+vec3 diffuse = vec3(0.0);       // Surface diffuse color
+vec3 cookTorrance = vec3(0.0);  // Surface specular color (Cook-Torrance model)
+
+uniform float roughness;        // Surface roughness value
+uniform vec3 lightColor;        // Color of the light
+uniform float standard = 0.1;   // Standard reflectance value
+
+void main()
+{
+    vec3 halfAngle = normalize(viewDir + lightDir);  // Half angle vector
+    float normalDotHalfAngle = max(dot(normal, halfAngle), 0.0);  // Dot product of normal and half angle
+    float normalDotHalfAngleSquared = normalDotHalfAngle * normalDotHalfAngle;  // Squared dot product of normal and half angle
+    float normalDotViewDir = max(dot(normal, viewDir), 0.0);  // Dot product of normal and view direction
+    float viewDirDotHalfAngle = max(dot(viewDir, halfAngle), 0.0);  // Dot product of view direction and half angle
+    float normalDotLightDir = max(dot(normal, lightDir), 0.0);  // Dot product of normal and light direction
+    float Kr = pow((1.0 - standard) / (1.0 + standard), 2.0);  // Reflectivity value
+
+    // Distribution
+    float roughnessSquared = roughness * roughness;  // Squared roughness value
+    float denominator = 1.0 / roughnessSquared * (pow(normalDotHalfAngleSquared, 2.0));  // Denominator for distribution term
+    float tan2Alpha = (normalDotHalfAngleSquared - 1.0) / normalDotHalfAngleSquared;  // Tangent of half angle squared
+    float D = exp(tan2Alpha / roughnessSquared) / denominator;  // Distribution term
+
+    // Geometric Functions
+    float g1 = (normalDotHalfAngleSquared * normalDotViewDir) / viewDirDotHalfAngle;  // Geometric term for view direction
+    float g2 = (normalDotHalfAngleSquared * normalDotLightDir) / viewDirDotHalfAngle;  // Geometric term for light direction
+    float G = min(1.0, min(g1, g2));  // Geometric term
+
+    // Fresnel
+    float F = Kr + (1.0 - Kr) * pow((1.0 - normalDotLightDir), 5.0);  // Fresnel term
+
+    // Cook-Torrance
+    vec3 specular = (((D * F * G) / (PI * normalDotViewDir)) * lightColor);  // Compute the specular contribution using Cook-Torrance model
+    vec3 lambertian = (1.0 - roughness) * (lightColor * normalDotLightDir);  // Compute the Lambertian contribution
+    diffuse += lambertian * attenuation;    // Accumulate the diffuse component with attenuation
+    cookTorrance += (specular * attenuation);    // Accumulate the Cook-Torrance component with attenuation
+    ambientColor += (lightColor * attenuation);    // Accumulate the ambient component with attenuation
+    vec3 ambience = 0.01 * ambientColor;    // Compute the ambient contribution
+    vec3 result = (ambience + diffuse + cookTorrance);    // Compute the final result by adding up all components
+    FragColor = vec4(result, 1.0f);    // Output the final color value
+}

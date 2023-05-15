@@ -1,0 +1,40 @@
+#version 330
+
+// Input variables
+in vec3 vertex_position; // Vertex position in object space
+in vec3 vertex_normal; // Vertex normal in object space
+
+// Output variable
+out vec3 LightIntensity; // Output color and intensity of the light
+
+// Light parameters
+vec4 LightPosition = vec4(10.0, 10.0, 4.0, 1.0); // Light position in world coordinates
+vec3 Kd = vec3(0.0, 0.8, 0.0); // Green diffuse surface reflectance
+vec3 Ld = vec3(1.0, 1.0, 1.0); // Light source intensity
+
+// Uniform variables
+uniform mat4 view; // View matrix
+uniform mat4 proj; // Projection matrix
+uniform mat4 model; // Model matrix
+
+void main()
+{
+    // Compute the model-view matrix and normal matrix
+    mat4 ModelViewMatrix = view * model;
+    mat3 NormalMatrix = mat3(ModelViewMatrix);
+
+    // Convert the normal and position to eye coordinates
+    // Normal in view space
+    vec3 tnorm = normalize(NormalMatrix * vertex_normal);
+    // Position in view space
+    vec4 eyeCoords = ModelViewMatrix * vec4(vertex_position, 1.0);
+
+    // Compute the normalized vector towards the light source
+    vec3 s = normalize(vec3(LightPosition - eyeCoords));
+
+    // The diffuse shading equation, dot product gives us the cosine of angle between the vectors
+    LightIntensity = Ld * Kd * max(dot(s, tnorm), 0.0);
+
+    // Convert the position to clip coordinates and pass it along
+    gl_Position = proj * view * model * vec4(vertex_position, 1.0);
+}

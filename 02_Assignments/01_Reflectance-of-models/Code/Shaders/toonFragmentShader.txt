@@ -1,0 +1,63 @@
+// This version of Toon uses Diffuse and Specular lighting based on the
+// viewers position. The intensity value is based on the Diffuse and 
+// Specular lighting and depending on it's value, the object colour
+// is changed accordingly.
+
+#version 330 core
+
+// Define output color
+out vec4 FragColor;
+
+// Input normal and fragment position
+in vec3 normal;
+in vec3 fragPos;
+
+// Uniform variables for light position, viewer position, light color, object color,
+// diffuse coefficient and specular coefficient
+uniform vec3 lightPos;
+uniform vec3 viewPos;
+uniform vec3 lightColor;
+uniform vec3 objectColor;
+uniform float diffuseCo;
+uniform float specCo;
+
+void main() {
+	// Normalize the normal vector
+	vec3 norm = normalize(normal);
+
+	// Calculate the direction of the light from the fragment position
+	vec3 lightDir = normalize(lightPos - fragPos);
+
+	// Calculate the direction of the viewer from the fragment position
+	vec3 viewDir = normalize(viewPos - fragPos);
+
+	// Calculate the reflection of the light direction with respect to the normal
+	vec3 reflectDir = reflect(lightDir, norm);
+
+	// Calculate the specular and diffuse components of the lighting
+	float spec = max(dot(viewDir, reflectDir), 0.0);
+	float diff = max(dot(norm, lightDir), 0.0);
+
+	// Calculate the intensity value based on the diffuse and specular components
+	float intensity = (diffuseCo * diff) + (specCo * spec);
+
+	// Map the intensity value to a toon shading range
+	if (intensity > 0.95) {
+		intensity = 1.1;
+	}
+	else if (intensity > 0.5) {
+		intensity = 0.7;
+	}
+	else if (intensity > 0.25) {
+		intensity = 0.4;
+	}
+	else {
+		intensity = 0.0;
+	}
+
+	// Multiply the object color by the intensity to create the toon shading effect
+	vec3 result = objectColor * intensity;
+
+	// Output the final color
+	FragColor = vec4(result, 1.0);
+}

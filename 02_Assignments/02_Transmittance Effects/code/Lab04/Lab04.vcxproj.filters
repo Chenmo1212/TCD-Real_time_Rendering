@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Resource Files\Shader">
+      <UniqueIdentifier>{5cc3ec90-8b69-42d2-ae05-6f39b4d89fe4}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="maths_funcs.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="maths_funcs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\shaders\modelVertexShader.txt">
+      <Filter>Resource Files\Shader</Filter>
+    </Text>
+    <Text Include="..\shaders\reflectionFragmentShader.txt">
+      <Filter>Resource Files\Shader</Filter>
+    </Text>
+    <Text Include="..\shaders\refractionFragmentShader.txt">
+      <Filter>Resource Files\Shader</Filter>
+    </Text>
+    <Text Include="..\shaders\skyboxFragmentShader.txt">
+      <Filter>Resource Files\Shader</Filter>
+    </Text>
+    <Text Include="..\shaders\skyboxVertexShader.txt">
+      <Filter>Resource Files\Shader</Filter>
+    </Text>
+    <Text Include="..\shaders\textFragmentShader.txt">
+      <Filter>Resource Files\Shader</Filter>
+    </Text>
+    <Text Include="..\shaders\textVertexShader.txt">
+      <Filter>Resource Files\Shader</Filter>
+    </Text>
+    <Text Include="..\shaders\chromaticDispersionFragmentShader.txt">
+      <Filter>Resource Files\Shader</Filter>
+    </Text>
+    <Text Include="..\shaders\fresnelFragmentShader.txt">
+      <Filter>Resource Files\Shader</Filter>
+    </Text>
+  </ItemGroup>
+</Project>

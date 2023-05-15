@@ -1,0 +1,20 @@
+﻿  main.cpp
+D:\Windows Kits\10\Include\10.0.19041.0\um\freetype\freetype.h(2670,1): warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+D:\OneDrive - 吐司工作室\Files\006_TCD\05_lectures\10_RTR(Real-time Rendering)\02_Assignments\02_Transmittance Effects\code\Lab04\main.cpp(60,1): warning C5208: unnamed class used in typedef name cannot declare members other than non-static data members, member enumerations, or member classes
+D:\OneDrive - 吐司工作室\Files\006_TCD\05_lectures\10_RTR(Real-time Rendering)\02_Assignments\02_Transmittance Effects\code\Lab04\main.cpp(94,18): warning C4305: 'initializing': truncation from 'double' to 'float'
+D:\OneDrive - 吐司工作室\Files\006_TCD\05_lectures\10_RTR(Real-time Rendering)\02_Assignments\02_Transmittance Effects\code\Lab04\main.cpp(95,18): warning C4305: 'initializing': truncation from 'double' to 'float'
+D:\OneDrive - 吐司工作室\Files\006_TCD\05_lectures\10_RTR(Real-time Rendering)\02_Assignments\02_Transmittance Effects\code\Lab04\main.cpp(96,18): warning C4305: 'initializing': truncation from 'double' to 'float'
+D:\OneDrive - 吐司工作室\Files\006_TCD\05_lectures\10_RTR(Real-time Rendering)\02_Assignments\02_Transmittance Effects\code\Lab04\main.cpp(366,20): warning C4018: '<': signed/unsigned mismatch
+D:\OneDrive - 吐司工作室\Files\006_TCD\05_lectures\10_RTR(Real-time Rendering)\02_Assignments\02_Transmittance Effects\code\Lab04\main.cpp(473,14): warning C4305: '=': truncation from 'double' to 'float'
+D:\OneDrive - 吐司工作室\Files\006_TCD\05_lectures\10_RTR(Real-time Rendering)\02_Assignments\02_Transmittance Effects\code\Lab04\main.cpp(474,14): warning C4305: '=': truncation from 'double' to 'float'
+D:\OneDrive - 吐司工作室\Files\006_TCD\05_lectures\10_RTR(Real-time Rendering)\02_Assignments\02_Transmittance Effects\code\Lab04\main.cpp(475,14): warning C4305: '=': truncation from 'double' to 'float'
+D:\OneDrive - 吐司工作室\Files\006_TCD\05_lectures\10_RTR(Real-time Rendering)\02_Assignments\02_Transmittance Effects\code\Lab04\main.cpp(501,115): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\OneDrive - 吐司工作室\Files\006_TCD\05_lectures\10_RTR(Real-time Rendering)\02_Assignments\02_Transmittance Effects\code\Lab04\main.cpp(511,100): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\OneDrive - 吐司工作室\Files\006_TCD\05_lectures\10_RTR(Real-time Rendering)\02_Assignments\02_Transmittance Effects\code\Lab04\main.cpp(522,100): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\OneDrive - 吐司工作室\Files\006_TCD\05_lectures\10_RTR(Real-time Rendering)\02_Assignments\02_Transmittance Effects\code\Lab04\main.cpp(533,112): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\OneDrive - 吐司工作室\Files\006_TCD\05_lectures\10_RTR(Real-time Rendering)\02_Assignments\02_Transmittance Effects\code\Lab04\main.cpp(537,111): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\OneDrive - 吐司工作室\Files\006_TCD\05_lectures\10_RTR(Real-time Rendering)\02_Assignments\02_Transmittance Effects\code\Lab04\main.cpp(541,111): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\OneDrive - 吐司工作室\Files\006_TCD\05_lectures\10_RTR(Real-time Rendering)\02_Assignments\02_Transmittance Effects\code\Lab04\main.cpp(548,125): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\OneDrive - 吐司工作室\Files\006_TCD\05_lectures\10_RTR(Real-time Rendering)\02_Assignments\02_Transmittance Effects\code\Lab04\main.cpp(552,125): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\OneDrive - 吐司工作室\Files\006_TCD\05_lectures\10_RTR(Real-time Rendering)\02_Assignments\02_Transmittance Effects\code\Lab04\main.cpp(556,125): warning C4305: 'argument': truncation from 'double' to 'float'
+  Lab04.vcxproj -> D:\OneDrive - 吐司工作室\Files\006_TCD\05_lectures\10_RTR(Real-time Rendering)\02_Assignments\02_Transmittance Effects\code\build\executables\Debug\Lab 04.exe

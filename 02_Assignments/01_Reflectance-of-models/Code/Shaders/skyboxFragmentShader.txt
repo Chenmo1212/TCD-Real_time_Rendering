@@ -1,0 +1,17 @@
+#version 330
+
+// Output fragment color
+out vec4 FragColor;
+
+// Input texture coordinates
+in vec3 textureCoords;
+
+// Uniform sampler for the skybox texture
+uniform samplerCube skybox;
+
+void main()
+{
+    // Sample the skybox texture using the input texture coordinates
+    // and assign the resulting color to the output fragment color
+    FragColor = texture(skybox, textureCoords);
+}

@@ -1,0 +1,10 @@
+#version 330
+
+// Input variable
+in vec3 LightIntensity; // Color and intensity of the light
+
+void main()
+{
+    // Set the fragment color to the light intensity value
+    gl_FragColor = vec4(LightIntensity, 1.0);
+}

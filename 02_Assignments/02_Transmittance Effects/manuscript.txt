@@ -1,0 +1,28 @@
+Hi, everyone.
+
+This is my video submission for real-time rendering assignment two.
+
+and this task was to implement some shaders for an object that is both transmissive and reflective
+
+Here I implemented four shaders, Reflection, Refraction, Fresnel and Chromatic Dispersion.
+
+Also used the sky images as a skybox to show the effects.
+
+In the first scene, I compared four shaders, and you can see the different effects of the four shaders.
+
+For easy viewing, I set the model to auto-rotate.
+
+Then, I used each shader as a separate scene for comparison.
+
+The first one is Reflection, I used three different models to observe the reflection effects. As u can see, the reflected blue sky and white clouds can be seen on the three models.
+
+The second one is Refraction. Like the first shader, the three models of snowman model, teapot model and box model are used to compare the results.
+
+Then some advanced shaders. The Fresnel effect is the change in the amount of light reflected or transmitted from a surface due to the angle at which the light hits the surface. As the angle of incidence increases, the amount of light reflected or transmitted increases. Here I set a parameter of Fresnel to different values ​​for comparison. You can see that the left one is 0.1, the middle one is 0.5, and the right one is 0.9, so as to compare different effects.
+
+
+The last one is Chromatic Dispersion. Chromatic dispersion is a phenomenon in which light of different wavelengths is refracted or bent differently when it passes through a medium. This is due to the varying refractive indices of the different wavelengths of light. I use fPower to set different values ​​for comparison. The parameter values ​​​​set here are 0.5, 1.0 and 2.0. The purpose is to observe the effect of the shader under different parameter settings.
+
+And, for the convenience of observation, I also set up some keyboard and mouse events, like If I press the C key, the camera will rotate around the model, which is convenient for us to observe the effect better. If I press the P key, it will switch the scene of the skybox, like this. and I can use the mouse wheel to change the distance of camera and models.
+
+Yeah, that's all my submission, thank you for watching.

@@ -1,0 +1,19 @@
+Hi everyone, my topic is Text2Human: text-driven controllable human image generation. First of all, let me introduce my current implementation:
+
+Text2Human means you only need to provide some text descriptions of the shape and texture, as well as a desired human pose. The system can then generate a human image based on your input. For example, if you provide a human pose with a person standing with his hands hanging down, and you want to generate a lady wearing a short-sleeved T-shirt and a denim skirt, you can simply describe the shape and texture just like this.
+
+The generation process is divided into two parts. First, it generates a human parsing based on the provided human pose, as shown in this image. Then, it generates the texture based on the provided text descriptions. As you can see from the resulting image, there are some areas that are slightly misplaced, but overall the output is quite good.
+
+However, I want to explore more possibilities based on these 2D images. I just thought can we generate 3D models just from 2D images? I did some research and found some theories that support my idea.
+
+The first is SMPL, which stands for Skinned Multi-Person Linear Model. This is a framework used to generate realistic human poses and shapes. I can use it to capture the body's skeletal structure and muscle movements.
+
+The next is NeRF, which is a method used to build realistic 3D models. It's an advanced rendering technique that estimates the color and transparency of each pixel point in a scene based on ray tracing, and generates a highly realistic 3D model based on this information.
+
+Based on these theories, I plan to generate a realistic 3D scene model from 2D images containing a human body within the next few weeks. The general steps are as follows:
+
+First, I will use SMPL to construct a 3D model of the human body using the keypoint information of the 2D image as input.
+
+Then, I will use NeRF to generate a realistic 3D human body model by using the SMPL model as input.
+
+These are all my presentation. Thank you for listening!

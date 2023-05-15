@@ -1,0 +1,39 @@
+#version 330 core
+
+// Output variable
+out vec4 FragColor;
+
+// Input variables
+in vec3 normal; // Interpolated normal vector for fragment
+in vec3 fragPos; // Interpolated vertex position in world space for fragment
+
+// Uniform variables (values shared for all fragments)
+uniform vec3 lightPos; // Light source position in world space
+uniform vec3 viewPos; // Camera position in world space
+uniform vec3 lightColor; // Color of the light source
+uniform vec3 objectColor; // Color of the object being rendered
+uniform float specStrength; // Strength of specular highlights
+
+void main()
+{
+    // Ambient lighting contribution
+    float ambientStrength = 0.1; // Strength of ambient lighting
+    vec3 ambient = ambientStrength * lightColor; // Ambient light color
+
+    // Diffuse lighting contribution
+    vec3 norm = normalize(normal); // Normal vector of the surface
+    vec3 lightDir = normalize(lightPos - fragPos); // Direction from fragment to light source
+    float diff = max(dot(norm, lightDir), 0.0); // Diffuse factor based on angle between normal and light direction
+    vec3 diffuse = diff * lightColor; // Diffuse light color
+
+    // Specular lighting contribution
+    float specularStrength = specStrength; // Strength of specular highlights
+    vec3 viewDir = normalize(viewPos - fragPos); // Direction from fragment to camera (viewer)
+    vec3 reflectDir = reflect(lightDir, norm); // Reflection vector based on incident light and surface normal
+    float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32); // Specular factor based on angle between view direction and reflection vector
+    vec3 specular = specularStrength * spec * lightColor; // Specular highlight color
+
+    // Combine all lighting contributions with object color to get final fragment color
+    vec3 result = (ambient + diffuse + specular) * objectColor; // Resulting color with ambient, diffuse, and specular lighting
+    FragColor = vec4(result, 1.0); // Assign the final fragment color to the output variable
+}

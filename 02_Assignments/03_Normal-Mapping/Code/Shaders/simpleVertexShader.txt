@@ -1,0 +1,46 @@
+// Version of OpenGL to use
+#version 330
+
+// Input variables for vertex shader
+in vec3 vertex_position; // Position of vertex in object space
+in vec3 vertex_normal; // Normal of vertex in object space
+
+// Output variable for fragment shader
+out vec3 LightIntensity; // Final color of the vertex after lighting calculations
+
+// Position of light source in world coordinates
+vec4 LightPosition = vec4 (10.0, 10.0, 4.0, 1.0); 
+
+// Diffuse surface reflectance of the object
+vec3 Kd = vec3 (214/255.0, 234/255.0, 240/255.0);
+
+// Intensity of the light source
+vec3 Ld = vec3 (0.2, 0.2, 0.2);
+
+// Uniform variables to transform vertex position to clip coordinates
+uniform mat4 view; // View matrix
+uniform mat4 proj; // Projection matrix
+uniform mat4 model; // Model matrix
+
+// Vertex shader main function
+void main(){
+
+  // Compute Model-View matrix and Normal matrix
+  mat4 ModelViewMatrix = view * model; // Transform from object space to view space
+  mat3 NormalMatrix = mat3(ModelViewMatrix); // Extract the 3x3 normal matrix from ModelView matrix
+
+  // Convert vertex normal and position to eye space
+  // Normal in view space
+  vec3 tnorm = normalize( NormalMatrix * vertex_normal);
+  // Position in view space
+  vec4 eyeCoords = ModelViewMatrix * vec4(vertex_position,1.0);
+
+  // Compute the normalized vector towards the light source
+  vec3 s = normalize(vec3(LightPosition - eyeCoords));
+
+  // Compute the diffuse lighting equation, dot product gives us the cosine of angle between the vectors
+  LightIntensity = Ld * Kd * max( dot( s, tnorm ), 0.0 );
+
+  // Transform vertex position to clip coordinates
+  gl_Position = proj * view * model * vec4(vertex_position,1.0);
+}

@@ -1,0 +1,31 @@
+Hi, everyone.
+
+This is my video submission for real-time rendering assignment three.
+
+and this task was to implement some mapping technologies for an object.
+
+Here I implemented three mapping methods, diffuse mapping, normal mapping and parallax mapping.
+
+I also add a light source to show the mapping details. U can use W, S, A, and D key to change the position of light source.
+
+In the first scene, u can see that, this is a flat with brick wall texture.
+
+The default mapping method is diffuse mapping. This is the most common mapping technique and the texture map is created using an image that represents the diffuse reflection of light from the surface.
+
+The next mapping technique is normal mapping. Different from the diffuse mapping, normal mapping makes details more realistic by modifying the direction of the texture normals.
+
+The last mapping method is parallax mapping. I have read some papers when I try to implement this task. And I found that there is a mapping technique better than normal mapping, cuz it takes into account the depth information of the texture instead of just changing the direction of the normal.
+
+It can be seen that the gaps between the bricks are deeper and more realistic than the previous one.
+
+To compare the differences between these three techniques, I also use different textures. We can switch these textures by pressing the 7, 8, and 9 keys. Just like this. When I switch between different mapping methods, u can see it more clearly.
+
+In addition, I can also change the model, for example, when I press the t key, it will switch to the teapot model.
+
+And the model will be auto-rotate when u press the m key at this moment.
+
+We know that different mapping methods actually achieve details through lighting. So, here I can press c key to let the camera rotate around the model, and you can see that when the back of the model is not illuminated, its texture effect is actually the same as that of diffuse mapping. You can zoom the model using the mouse wheel to better see the details.
+
+Finally, you can press the R key to reset all parameters you have previously set.
+
+Yeah, that's all my submission, thank you for watching.
